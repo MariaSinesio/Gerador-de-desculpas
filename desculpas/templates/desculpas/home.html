@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alibi express</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+          "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+        text-align: center;
+        height: 400px;
+        /* margin: 50px; para tornar comentario é crtl k e c */
+        background-color: #415a77;
+      }
+      header {
+        width: 100%;
+        background-color: #e0e1dd;
+        padding: 8px 24px;
+        display: flex;
+        text-align: left;
+        justify-content: left;
+      }
+      p {
+        color: white;
+        margin: 40px 0;
+        font-size: 1.2em;
+      }
+      #desculpa {
+        margin: 20px 0;
+        font-size: 1.5em;
+        color: #e0e1dd;
+      }
+      #gerar {
+        text-decoration: none;
+        color: white;
+        background-color: #1b263b;
+        border-radius: 4px;
+        padding: 10px 16px;
+        cursor: pointer;
+        border: none;
+        font-size: 1em;
+      }
+      #gerar:hover {
+        background-color: #0d1b2a;
+      }
+    </style>
+  </head>
+  <body>
+    <header><h1>Alibi express</h1></header>
+    <p>
+      Tá afim de faltar o colégio? Não quer ver os parentes? Não quer sair com
+      os amigos? Gere aqui a desculpa adequada e mais realista possivel!
+    </p>
+    <div id="desculpa">Gerando...</div>
+    <button id="gerar">Gerar Desculpa</button>
+
+    <script>
+      const bababa = document.getElementById("gerar");
+      const apareceLá = document.getElementById("desculpa");
+
+      bababa.addEventListener("click", () => {
+        fetch("/gerar/")
+          .then((response) => response.json())
+          .then((data) => {
+            apareceLá.textContent = data.desculpa;
+            apareceLá.style.color = data.color || "#333";
+          })
+          .catch(() => {
+            apareceLá.textContent =
+              "Aparentemente não temos nada para você nesse momento, tente novamente mais tarde!";
+          });
+      });
+    </script>
+  </body>
+</html>
